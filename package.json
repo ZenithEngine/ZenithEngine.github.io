@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-css": "sass scss:css --watch --style=compressed"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["xenengine","blackmesa","opensource"],
+  "author": "Zenith Team",
   "license": "ISC",
   "devDependencies": {
     "sass": "^1.80.6"
