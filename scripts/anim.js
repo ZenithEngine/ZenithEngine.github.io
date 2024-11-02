@@ -1,13 +1,13 @@
-$(document).ready(function() {
+$(function() {
     const $h2 = $('h2');
+    const $header = $('.header');
+
+    if ($h2.length === 0 || $header.length === 0) {
+        return;
+    }
 
     $(window).on('scroll', function() {
         const scrollPosition = $(this).scrollTop();
-
-        if ($h2.length === 0) {
-            return;
-        }
-
         const h2Position = $h2.offset().top;
 
         if (scrollPosition >= h2Position - $(window).height() / 2 && scrollPosition < h2Position + 100) {
@@ -16,13 +16,9 @@ $(document).ready(function() {
                 'opacity': 1,
                 'transform': `translateY(-${translateY}px)`
             });
-
         } else if (scrollPosition >= h2Position + 100) {
-            $h2.css('opacity', 1 - (scrollPosition - h2Position - 100) / 200);
-
-            if (scrollPosition > h2Position + 200) {
-                $h2.css('opacity', 0);
-            }
+            const opacityValue = 1 - (scrollPosition - h2Position - 100) / 200;
+            $h2.css('opacity', Math.max(opacityValue, 0));
         } else {
             $h2.css({
                 'opacity': 0,
@@ -30,10 +26,10 @@ $(document).ready(function() {
             });
         }
 
-        let opacity = 1 - scrollPosition / 15;
-        let scale = Math.max(1 + (scrollPosition / 15), 1);
+        const opacity = Math.max(1 - scrollPosition / 15, 0);
+        const scale = 1 + (scrollPosition / 15);
         
-        $('.header').css({
+        $header.css({
             'opacity': opacity,
             'transform': `scale(${scale})`,
             'transform-origin': 'center'
